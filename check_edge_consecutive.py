@@ -4,7 +4,7 @@
 Author: uniooo
 Date: 2021-05-18 11:11:31
 LastEditors: uniooo
-LastEditTime: 2021-05-18 21:43:33
+LastEditTime: 2021-05-20 16:28:07
 FilePath: /graph_tools/check_edge_consecutive.py
 Description: check if the graph data is id-consecutive.
     1. read graph and compute the number of vertices, edges. compare 
@@ -41,7 +41,7 @@ class GraphChecker:
             self.n_claim, self.m_claim = map(int, next(fin).strip().split())
             m_direct_count = 0
             for line in fin:
-                a, b = map(int, next(fin).strip().split())
+                a, b = map(int, line.strip().split())
                 self.add_edge(a, b)
                 m_direct_count += 1
             if m_direct_count != self.m_claim:
