@@ -4,7 +4,7 @@
 Author: uniooo
 Date: 2021-05-19 14:48:19
 LastEditors: uniooo
-LastEditTime: 2021-05-19 22:14:19
+LastEditTime: 2021-05-21 11:56:39
 FilePath: /graph_tools/count_ccs.py
 Description: 
 '''
@@ -23,7 +23,7 @@ def union_node(u, v):
     u = find_pa(u)
     v = find_pa(v)
     if (u != v):
-        pa[u] = v
+        pa[v] = u
     
 graph_file = sys.argv[1]
 with open(graph_file, "r") as fin:
