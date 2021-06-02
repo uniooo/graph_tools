@@ -4,7 +4,7 @@
 Author: uniooo
 Date: 2021-05-18 11:11:31
 LastEditors: uniooo
-LastEditTime: 2021-06-02 12:03:06
+LastEditTime: 2021-06-02 15:49:21
 FilePath: /graph_tools/check_edge_consecutive.py
 Description: check if the graph data is id-consecutive.
     1. read graph and compute the number of vertices, edges. compare 
@@ -47,10 +47,15 @@ class GraphChecker:
             if m_direct_count != self.m_claim:
                 print("m_direct_count = %d, m_claim = %d" % (m_direct_count, self.m_claim))
     
+    def set_graph_by_edges(self, edge_list):
+        for a, b in edge_list:
+            self.add_edge(a, b)
+            
     def check_vertex(self):
         n_count = len(self.vtex_set)
         if n_count != self.n_claim:
             print("n_count = %d, m_claim = %d" % (n_count, self.m_claim))
+            return False
         
         if min(self.vtex_set) != 1:
             print("vertex id does not start with 1")
@@ -59,9 +64,9 @@ class GraphChecker:
         if n_count != max(self.vtex_set):
             print("vertex id is not consecutive")
             return False
+        return True
         
     def remapping_graph(self):
-        n_count = len(self.vtex_set)
         vtex_list = sorted(list(self.vtex_set))  # new_id -1 --> old_id
         old_id2new_id = [0] * (max(self.vtex_set) + 1)
         cnt = 0
@@ -75,6 +80,10 @@ class GraphChecker:
                 edge_list.append((old_id2new_id[vid], old_id2new_id[uid]))
 
         edge_list = sorted(edge_list)
+        return edge_list
+
+    def print_edge_list(self, edge_list):
+        n_count = len(self.vtex_set)
         # print(len(edge_list))
         with open(self.file_name+".new", "w") as fout:
             fout.write(str(n_count) + " " + str(len(edge_list)) + "\n")
@@ -96,7 +105,11 @@ def main():
     ck = GraphChecker()
     ck.read_graph(fin_name)
     if not ck.check_vertex(): 
-        ck.remapping_graph()
+        edge_list = ck.remapping_graph()
+        ck.print_edge_list(edge_list)
+    else:
+        print("The original graph is valid.\n")
+
 
 if __name__ == "__main__":
     main()
