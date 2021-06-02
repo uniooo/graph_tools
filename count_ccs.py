@@ -4,7 +4,7 @@
 Author: uniooo
 Date: 2021-05-19 14:48:19
 LastEditors: uniooo
-LastEditTime: 2021-06-01 15:55:24
+LastEditTime: 2021-06-02 11:54:29
 FilePath: /graph_tools/count_ccs.py
 Description: 
 '''
@@ -39,16 +39,23 @@ class CC_Counter:
             if self.pa[i] == -1:
                 cnt += 1
         return cnt-1 # node id starts from 1, hence 0 is always -1.
+    
+    def get_ccs(self, edges):
+        cnt = self.count_cc(edges)
+        return (cnt, self.n, self.pa)
 
 def count_ccs(graph_file):
+    return get_ccs(graph_file)[0]
+
+def get_ccs(graph_file):
     with open(graph_file, "r") as fin:
         n, m = map(int, next(fin).strip().split())
         cc_counter = CC_Counter(n)
         
         read_edges = lambda fin:(map(int, line.strip().split()) for line in fin)
         edges = read_edges(fin)
-        return cc_counter.count_cc(edges)
-        
+        return cc_counter.get_ccs(edges)
+
 if __name__ == "__main__":
     graph_file = sys.argv[1]
     num_of_ccs = count_ccs(graph_file)
