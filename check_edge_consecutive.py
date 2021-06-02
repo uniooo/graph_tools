@@ -4,7 +4,7 @@
 Author: uniooo
 Date: 2021-05-18 11:11:31
 LastEditors: uniooo
-LastEditTime: 2021-05-21 12:08:03
+LastEditTime: 2021-06-02 12:03:06
 FilePath: /graph_tools/check_edge_consecutive.py
 Description: check if the graph data is id-consecutive.
     1. read graph and compute the number of vertices, edges. compare 
@@ -90,6 +90,7 @@ class GraphChecker:
 def main():
     if len(sys.argv) != 2:
         print("./check_edge_consecutive.py fin_name\n")
+        exit(0)
 
     fin_name =  sys.argv[1]
     ck = GraphChecker()

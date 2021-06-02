@@ -4,7 +4,7 @@
 Author: uniooo
 Date: 2021-05-19 14:48:19
 LastEditors: uniooo
-LastEditTime: 2021-06-02 11:54:29
+LastEditTime: 2021-06-02 12:02:10
 FilePath: /graph_tools/count_ccs.py
 Description: 
 '''
@@ -57,6 +57,9 @@ def get_ccs(graph_file):
         return cc_counter.get_ccs(edges)
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("./count_ccs.py graph_file_name\n")
+        exit(0)
     graph_file = sys.argv[1]
     num_of_ccs = count_ccs(graph_file)
     print(num_of_ccs)
