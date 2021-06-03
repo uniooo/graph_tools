@@ -4,7 +4,7 @@
 Author: uniooo
 Date: 2021-05-19 14:48:19
 LastEditors: uniooo
-LastEditTime: 2021-06-02 12:02:10
+LastEditTime: 2021-06-03 11:16:17
 FilePath: /graph_tools/count_ccs.py
 Description: 
 '''
@@ -28,7 +28,10 @@ class CC_Counter:
         u = self.find_pa(u)
         v = self.find_pa(v)
         if (u != v):
-            self.pa[v] = u
+            if u < v:
+                self.pa[v] = u
+            else:
+                self.pa[u] = v
 
     def count_cc(self, edges):
         for u, v in edges:
@@ -42,6 +45,8 @@ class CC_Counter:
     
     def get_ccs(self, edges):
         cnt = self.count_cc(edges)
+        for i in range(self.n+1):   # recompress the pa list
+            self.find_pa(i)
         return (cnt, self.n, self.pa)
 
 def count_ccs(graph_file):
