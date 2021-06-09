@@ -39,13 +39,13 @@ class GraphChecker:
         self.file_name = fin_name
         with open(fin_name, "r") as fin:
             self.n_claim, self.m_claim = map(int, next(fin).strip().split())
-            m_direct_count = 0
+            self.m_direct_count = 0
             for line in fin:
                 a, b = map(int, line.strip().split()[:2])   # only take the first two cols as (u,v)
                 self.add_edge(a, b)
-                m_direct_count += 1
-            if m_direct_count != self.m_claim:
-                print("m_direct_count = %d, m_claim = %d" % (m_direct_count, self.m_claim))
+                self.m_direct_count += 1
+            # if m_direct_count != self.m_claim:
+            #     print("m_direct_count = %d, m_claim = %d" % (m_direct_count, self.m_claim))
     
     def set_graph_by_edges(self, edge_list):
         for a, b in edge_list:
@@ -56,6 +56,11 @@ class GraphChecker:
         if n_count != self.n_claim:
             print("n_count = %d, m_claim = %d" % (n_count, self.m_claim))
             return False
+
+        if self.m_direct_count != self.m_claim:
+            print("m_direct_count = %d, m_claim = %d" % (self.m_direct_count, self.m_claim))
+            return False
+
         
         if min(self.vtex_set) != 1:
             print("vertex id does not start with 1")
